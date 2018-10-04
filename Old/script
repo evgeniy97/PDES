@@ -1,0 +1,25 @@
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.14 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1402 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1404 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1406 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1408"
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.141 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1412 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1414 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1416 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1418 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.142 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1422 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1424 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1426 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1428 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.143 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1432 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1434 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1436 "
+sbatch -n 1 -t 14400 --wrap "mpirun -n 1 st.o 0.1438 "
+
+
+
+
+
