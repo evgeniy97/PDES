@@ -19,7 +19,7 @@ def main(path):
     data /= number_of_simulation
 
     # Save data
-
+    # There may be a sence to save output in new directory
     out_file_path = path + '.txt'
 
     data.to_csv(out_file_path, header=None, sep=' ', mode='w')
