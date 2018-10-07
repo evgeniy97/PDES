@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os.path
 import sys
 import glob # Go throw all files in directory
 
@@ -23,13 +24,41 @@ def get_info(data,col_name):
     return np.mean(col_data), np.std(col_data)
 
 
+def check(file_path):
+    """
+    check if file exits
+    if not create it
+    file_path: path to the file
+    """
+    if os.path.exists(file_path):
+        return file_path
+    else:
+        with open(file_path, 'w') as f:
+            pass
+        return file_path
+
+
+def save_info(file_path,data):
+    """
+    file_path: path to the file
+    """
+    col =['q','value','std']
+    df = pd.read_table(file_path,sep=' ',names=col,header=None,index_col='q')
+    # !!!!! Add data to df
+    df = df.append(data)
+    # Sort DataFrame
+    df = df.sort_values('q')
+    # Resave DataFrame
+    data.to_csv(file_path, header=None, sep=' ', mode='w')
+
 def main(path):
     """"
     path: path to directory
     """
-    names =['step','min','max','average','width','utilization'] 
+    names =['step','min','max','average','width','utilization']
 
     for file in glob.glob('result/*.txt'):
+        # !!!! WE NEED TO TAKE q AND p FROM FILE NAME!!!!
         # print(file)
         data = pd.read_table(file,sep=' ',names=names,header=None,index_col='step')
         # Calculate velocity
@@ -40,8 +69,6 @@ def main(path):
         width, width_std = get_info(data,'width')
         utilization, utilization_std = get_info(data, 'utilization')
         # Save information
-        
-
 
     pass
 
