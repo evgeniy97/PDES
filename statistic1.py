@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 import sys as sys # to get argument from command line
 
 # No error calculate in this version
@@ -20,8 +21,8 @@ def main(path):
 
     # Save data
     # There may be a sence to save output in new directory
-    out_file_path = path + '.txt'
-
+    out_path = re.split('/', path)
+    out_file_path = out_path[0] + '/after_statistics/'+ out_path[1] + '.txt'
     data.to_csv(out_file_path, header=None, sep=' ', mode='w')
     # read txt file as data = pd.read_table(FILE_PATH,sep=' ',names=names,header=None,index_col='step')
 
