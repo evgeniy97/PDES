@@ -3,6 +3,7 @@ import numpy as np
 import os.path
 import sys
 import glob # Go throw all files in directory
+import re
 
 
 def calculate_velocity(data, col_name):
@@ -59,6 +60,7 @@ def main(path):
 
     for file in glob.glob('result/*.txt'):
         # !!!! WE NEED TO TAKE q AND p FROM FILE NAME!!!!
+        parametrs = re.split('[^.0123456789]','file') #  p = [-1] q = [-2]
         # print(file)
         data = pd.read_table(file,sep=' ',names=names,header=None,index_col='step')
         # Calculate velocity
@@ -69,6 +71,7 @@ def main(path):
         width, width_std = get_info(data,'width')
         utilization, utilization_std = get_info(data, 'utilization')
         # Save information
+        
 
     pass
 
