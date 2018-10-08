@@ -43,11 +43,11 @@ def save_info(file_path,data):
     file_path: path to the file
     """
     col =['q','value','std']
-    df = pd.read_table(file_path,sep=' ',names=col,header=None,index_col='q')
+    df = pd.read_table(file_path,sep=' ',names=col,header=None)
     # !!!!! Add data to df
     df = df.append(data)
     # Sort DataFrame
-    df = df.sort_values('q')
+    # df = df.sort_values('q')
     # Resave DataFrame
     df.to_csv(file_path, header=None, sep=' ', mode='w+')
 
