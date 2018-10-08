@@ -34,6 +34,8 @@ File formats:   The ouptut files are:  txt
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <cstdlib>
+
 using namespace std;
 
 
@@ -100,11 +102,11 @@ vector< vector<int> > CreateOneDimSmallWorldTopolgy(int N, float p, mt19937_stat
 		from_node = mt19937_generate_(&state) % N;
 		to_node = mt19937_generate_(&state) % N;
 
-		//Проверка, чтобы не было кратных дуг и петель
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		if ((from_node != to_node) &&
 			(find(graph[from_node].begin(), graph[from_node].end(), to_node) == graph[from_node].end())) {
 			graph[from_node].push_back(to_node);
-			graph[to_node].push_back(from_node); //так как граф не ориентированный
+			graph[to_node].push_back(from_node); //пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			k += 1;
 		}
 	}
@@ -118,7 +120,7 @@ void PrintGraph(vector< vector<int> > graph) {
 	int N = graph.size();
 
 	for (int i = 0; i< N; i++) {
-		cout << "Элемент " << i << " соседствует с ";
+		cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " << i << " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ ";
 		for (int k = 0; k < graph[i].size(); k++)
 		{
 			cout << graph[i][k] << " ";
@@ -138,8 +140,8 @@ void ForwardPropogation(double array_of_LVT[], size_t number_of_LP, double r, mt
 	double sluch, J;
 
 	for (int i = 0; i<number_of_LP; i++) {
-		// Генерация случайного числа от 0 до 1 (равномерное распределение)
-		// Вычисление числа J (пуассоновское распределение с параметром r)
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 1 (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ J (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ r)
 
 		sluch = mt19937_generate_uniform_float_(&state);
 		if (sluch == 0) {
@@ -151,12 +153,12 @@ void ForwardPropogation(double array_of_LVT[], size_t number_of_LP, double r, mt
 			J = -r * log(sluch);
 		}
 
-		// Прибавление к случайному ЛП числа J
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ J
 		int index = mt19937_generate_(&state) % number_of_LP;
 
 		//int index = rand() % number_of_LP;
 		array_of_LVT[index] = array_of_LVT[index] + J;
-	} // Завершение цикла по N_PE
+	} // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ N_PE
 
 
 }
@@ -169,7 +171,7 @@ This procedure is made K*N times.
 */
 void  Rollback(double array_of_LVT[], vector< vector<int> > graph, size_t number_of_LP, double b, mt19937_state &state) {
 
-	//Генерация числа К
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ
 	double sluch = mt19937_generate_uniform_float_(&state);
 	int K;
 	int nNeighbours, indNeighbour;
@@ -182,15 +184,15 @@ void  Rollback(double array_of_LVT[], vector< vector<int> > graph, size_t number
 	}
 	else { K = round(-b * log(sluch)); }
 
-	// K*N раз
+	// K*N пїЅпїЅпїЅ
 	for (int i = 0; i < K * number_of_LP; i++) {
 
-		//Выбор случайного ЛП
+		//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 		index = mt19937_generate_(&state) % number_of_LP;
 
-		nNeighbours = graph[index].size(); // определили количество соседей
+		nNeighbours = graph[index].size(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-		indNeighbour = mt19937_generate_(&state) % nNeighbours;//выбрали случайного
+		indNeighbour = mt19937_generate_(&state) % nNeighbours;//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 		if (array_of_LVT[index] > array_of_LVT[graph[index][indNeighbour]])
 		{
@@ -198,7 +200,7 @@ void  Rollback(double array_of_LVT[], vector< vector<int> > graph, size_t number
 		}
 
 
-	} // Завершение цикла по K*N
+	} // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ K*N
 
 }
 /*==============================================================*/
@@ -321,6 +323,8 @@ int main(int argc, char* argv[]) {
 
 	MPI_Barrier(MPI_COMM_WORLD);
 	MPI_Finalize();
+	// Run statistic1/py file
+	std::system('python statistic1.py ' + path)
 
 	return 0;
 }
