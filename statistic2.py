@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import os.path
-import sys
 import glob # Go throw all files in directory
 import re
 
@@ -52,10 +51,7 @@ def save_info(file_path,data):
     # Resave DataFrame
     df.to_csv(file_path, header=None, sep=' ', mode='w+')
 
-def main(path):
-    """"
-    path: path to directory
-    """
+def main():
     names =['step','min','max','average','width','utilization']
 
     for file in glob.glob('result/after_statistics/*.txt'):
@@ -79,4 +75,4 @@ def main(path):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1]) # sys.argv[0] is a name of the script
+    main() # sys.argv[0] is a name of the script
