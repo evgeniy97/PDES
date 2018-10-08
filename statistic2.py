@@ -50,7 +50,7 @@ def save_info(file_path,data):
     # Sort DataFrame
     df = df.sort_values('q')
     # Resave DataFrame
-    data.to_csv(file_path, header=None, sep=' ', mode='w')
+    df.to_csv(file_path, header=None, sep=' ', mode='w+')
 
 def main(path):
     """"
@@ -59,7 +59,7 @@ def main(path):
     names =['step','min','max','average','width','utilization']
 
     for file in glob.glob('result/after_statistics/*.txt'):
-        parametrs = re.split('[^.0123456789]','file') #  p = [-1] q = [-2]
+        parametrs = re.split('[^.0123456789]',file[:-4]) #  p = [-1] q = [-2]
         # print(file)
         data = pd.read_table(file,sep=' ',names=names,header=None,index_col='step')
         # Calculate velocity
@@ -71,11 +71,11 @@ def main(path):
         utilization, utilization_std = get_info(data, 'utilization')
         # Save information
         out_path = 'result/final/p' + parametrs[-1]
-        save_info(out_path + 'min.txt',[{'q':parametrs[-2], 'value': velocity_min, 'std': velocity_min_std}])
-        save_info(out_path + 'max.txt',[{'q':parametrs[-2], 'value': velocity_max, 'std': velocity_max_std}])
-        save_info(out_path + 'average.txt',[{'q':parametrs[-2], 'value': velocity_average, 'std': velocity_average_std}])
-        save_info(out_path + 'width.txt',[{'q':parametrs[-2], 'value': width, 'std': width_std}])
-        save_info(out_path + 'utilization.txt',[{'q':parametrs[-2], 'value': utilization, 'std': utilization_std}])
+        save_info(check(out_path + 'min.txt'),[{'q':parametrs[-2], 'value': velocity_min, 'std': velocity_min_std}])
+        save_info(check(out_path + 'max.txt'),[{'q':parametrs[-2], 'value': velocity_max, 'std': velocity_max_std}])
+        save_info(check(out_path + 'average.txt'),[{'q':parametrs[-2], 'value': velocity_average, 'std': velocity_average_std}])
+        save_info(check(out_path + 'width.txt'),[{'q':parametrs[-2], 'value': width, 'std': width_std}])
+        save_info(check(out_path + 'utilization.txt'),[{'q':parametrs[-2], 'value': utilization, 'std': utilization_std}])
 
 
 if __name__ == "__main__":

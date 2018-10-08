@@ -23,7 +23,7 @@ def main(path):
     # There may be a sence to save output in new directory
     out_path = re.split('/', path)
     out_file_path = out_path[0] + '/after_statistics/'+ out_path[1] + '.txt'
-    data.to_csv(out_file_path, header=None, sep=' ', mode='w')
+    data.to_csv(out_file_path, header=None, sep=' ', mode='w+')
     # read txt file as data = pd.read_table(FILE_PATH,sep=' ',names=names,header=None,index_col='step')
 
 
