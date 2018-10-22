@@ -11,3 +11,4 @@ You have to create directory *result* and directories *after_statistics* and *fi
 **TO DO**
 - Sorting output file
 - Specify output files with more parametrs
+- Just get width not to mean it before
