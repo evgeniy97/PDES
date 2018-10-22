@@ -324,7 +324,9 @@ int main(int argc, char* argv[]) {
 	MPI_Barrier(MPI_COMM_WORLD);
 	MPI_Finalize();
 	// Run statistic1/py file
-	std::system('python statistic1.py ' + path)
+	string command = "python statistic1.py result/";
+	command += give_path(number_of_LP, number_of_timesteps, r, q, p);
+	std::system(command.c_str());
 
 	return 0;
 }
