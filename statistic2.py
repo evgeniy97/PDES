@@ -12,7 +12,7 @@ def calculate_velocity(data, col_name):
     """
     col_data = data[col_name]
     velocity = [col_data[i] - col_data[i-1] for i in range(1, len(col_data))]
-    return np.mean(velocity), np.sqrt(np.std(velocity)) / 1000 # Change in future
+    return np.mean(velocity), np.sqrt(np.std(velocity) /1000 )  # Change in future
 
 
 def get_info(data,col_name):
