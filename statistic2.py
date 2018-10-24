@@ -12,7 +12,7 @@ def calculate_velocity(data, col_name):
     """
     col_data = data[col_name]
     velocity = [col_data[i] - col_data[i-1] for i in range(1, len(col_data))]
-    return np.mean(velocity), np.sqrt(np.std(velocity) /1000 )  # Change in future
+    return np.mean(velocity), np.sqrt(np.std(velocity)/1000)  # Change in future
 
 
 def get_info(data,col_name):
@@ -21,7 +21,7 @@ def get_info(data,col_name):
     col_name: name of colum we want to calculate velocity
     """
     col_data = data[col_name]
-    return np.mean(col_data), np.std(col_data)
+    return np.mean(col_data), np.sqrt(np.std(col_data)/1000)
 
 
 def check(file_path):
@@ -43,13 +43,13 @@ def save_info(file_path,data):
     file_path: path to the file
     """
     col =['q','value','std']
-    df = pd.read_table(file_path,sep=' ',names=col,header=None)
+    df = pd.read_table(file_path,sep=' ',names=col,header=None, float_precision='high')
     # !!!!! Add data to df
     df = df.append(data)
     # Sort DataFrame
     # df = df.sort_values('q')
     # Resave DataFrame
-    df.to_csv(file_path, header=None, sep=' ', mode='w+')
+    df.to_csv(file_path, header=None, sep=' ', mode='w+', float_format='%.16f')
 
 def main():
     names =['step','min','max','average','width','utilization']
@@ -57,7 +57,7 @@ def main():
     for file in glob.glob('result/after_statistics/*.txt'):
         parametrs = re.split('[^.0123456789]',file[:-4]) #  p = [-1] q = [-2]
         # print(file)
-        data = pd.read_table(file,sep=' ',names=names,header=None,index_col='step')
+        data = pd.read_table(file,sep=' ',names=names,header=None,index_col='step', float_precision='high')
         # Calculate velocity
         velocity_min, velocity_min_std = calculate_velocity(data,'min')
         velocity_max, velocity_max_std = calculate_velocity(data,'max')
