@@ -308,7 +308,7 @@ int main(int argc, char* argv[]) {
 		mkdir(path.c_str(), 0777);
 		path = path + "/test" + to_string(j) + ".txt";
 		ofstream out(path, ios_base::trunc);
-		out.precision(8);
+		out.precision(16);
 
 		// Begin to model the evolution of LVT profile 
 		for (int t = 0; t < number_of_timesteps; t++)
