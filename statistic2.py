@@ -13,7 +13,7 @@ def calculate_velocity(data, col_name,start):
     """
     col_data = data[col_name]
     velocity = [col_data[i] - col_data[i-1] for i in range(1, len(col_data))]
-    return np.mean(velocity[start:]), np.sqrt(np.std(velocity) / 1000 )  # Change in future
+    return np.mean(velocity[start:]), np.sqrt(np.std(velocity[start:]))  # Change in future
 
 
 def get_info(data,col_name,start):
@@ -43,12 +43,10 @@ def save_info(file_path,data):
     """
     file_path: path to the file
     """
-    col =['q','value','std']
+    col =['value','std']
     df = pd.read_table(file_path,sep=' ',names=col,header=None,float_precision='high')
     # !!!!! Add data to df
     df = df.append(data)
-    # Sort DataFrame
-    # df = df.sort_values('q')
     # Resave DataFrame
     df.to_csv(file_path, header=None, sep=' ', mode='w+',float_format='%.16f')
 
@@ -72,11 +70,11 @@ def main(start=0):
         # utilization, utilization_std = get_info(data, 'utilization',start)
         # Save information
         out_path = 'result/final_' + str(start) + '/p' + parametrs[-1]
-        save_info(check(out_path + 'min.txt'),[{'q':parametrs[-2], 'value': velocity_min, 'std': velocity_min_std}])
-        save_info(check(out_path + 'max.txt'),[{'q':parametrs[-2], 'value': velocity_max, 'std': velocity_max_std}])
-        save_info(check(out_path + 'average.txt'),[{'q':parametrs[-2], 'value': velocity_average, 'std': velocity_average_std}])
-        # save_info(check(out_path + 'width.txt'),[{'q':parametrs[-2], 'value': width, 'std': width_std}])
-        # save_info(check(out_path + 'utilization.txt'),[{'q':parametrs[-2], 'value': utilization, 'std': utilization_std}])
+        save_info(check(out_path + 'min.txt'),[{'value': velocity_min, 'std': velocity_min_std}])
+        save_info(check(out_path + 'max.txt'),[{'value': velocity_max, 'std': velocity_max_std}])
+        save_info(check(out_path + 'average.txt'),[{'value': velocity_average, 'std': velocity_average_std}])
+        # save_info(check(out_path + 'width.txt'),[{''value': width, 'std': width_std}])
+        # save_info(check(out_path + 'utilization.txt'),[{'value': utilization, 'std': utilization_std}])
 
 
 if __name__ == "__main__":
