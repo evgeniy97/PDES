@@ -22,7 +22,7 @@ def get_info(data,col_name,start):
     col_name: name of colum we want to get
     """
     col_data = data[col_name]
-    return col_data[start:]
+    return col_data[start:], 0
 
 
 def check(file_path):
@@ -57,6 +57,7 @@ def main(start=0):
     start: point we want to start slice
     """
     names =['step','min','max','average','width','utilization']
+    start = int(start)
 
     for file in glob.glob('result/after_statistics/*.txt'):
         parametrs = re.split('[^.0123456789]',file[:-4]) #  p = [-1] q = [-2]
@@ -67,15 +68,15 @@ def main(start=0):
         velocity_max, velocity_max_std = calculate_velocity(data,'max',start)
         velocity_average, velocity_average_std = calculate_velocity(data, 'average',start)
         # Just get information from DataFrame
-        width, width_std = get_info(data,'width',start)
-        utilization, utilization_std = get_info(data, 'utilization',start)
+        # width, width_std = get_info(data,'width',start)
+        # utilization, utilization_std = get_info(data, 'utilization',start)
         # Save information
-        out_path = 'result/final_' + str(start) '/p' + parametrs[-1]
+        out_path = 'result/final_' + str(start) + '/p' + parametrs[-1]
         save_info(check(out_path + 'min.txt'),[{'q':parametrs[-2], 'value': velocity_min, 'std': velocity_min_std}])
         save_info(check(out_path + 'max.txt'),[{'q':parametrs[-2], 'value': velocity_max, 'std': velocity_max_std}])
         save_info(check(out_path + 'average.txt'),[{'q':parametrs[-2], 'value': velocity_average, 'std': velocity_average_std}])
-        save_info(check(out_path + 'width.txt'),[{'q':parametrs[-2], 'value': width, 'std': width_std}])
-        save_info(check(out_path + 'utilization.txt'),[{'q':parametrs[-2], 'value': utilization, 'std': utilization_std}])
+        # save_info(check(out_path + 'width.txt'),[{'q':parametrs[-2], 'value': width, 'std': width_std}])
+        # save_info(check(out_path + 'utilization.txt'),[{'q':parametrs[-2], 'value': utilization, 'std': utilization_std}])
 
 
 if __name__ == "__main__":
